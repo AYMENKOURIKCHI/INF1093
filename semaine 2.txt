@@ -1,0 +1,66 @@
+#question 1
+import os
+
+def listing_directory(directory_path):
+    files_list = []
+    
+    for item in os.listdir(directory_path):
+        item_path = os.path.join(directory_path, item)
+        if os.path.isfile(item_path):
+            file_name, ext = os.path.splitext(item)
+            size = os.path.getsize(item_path) / (1024 * 1024)  # Convertir la taille en Mo
+            files_list.append((file_name, ext, round(size, 2)))
+    
+    return files_list
+
+# Exemple d'utilisation
+directory_path = 'C:\\Users\\HP\\OneDrive - Collège Boréal\\Documents\\BASES DONNE\\300142241'
+fichiers = listing_directory(directory_path)
+print(fichiers)
+
+#Question2:
+def tri_selection_par_taille(triplets):
+    n = len(triplets)
+    for i in range(n):
+        # Trouver le minimum dans la sous-liste non triée
+        min_index = i
+        for j in range(i + 1, n):
+            if triplets[j][2] < triplets[min_index][2]:
+                min_index = j
+        # Échanger le minimum trouvé avec le premier élément de la sous-liste non triée
+        triplets[i], triplets[min_index] = triplets[min_index], triplets[i]
+    return triplets
+
+# Exemple d'utilisation
+triplets = [
+    ("fichier1", ".txt", 3),
+    ("image_fati", ".png", 10),
+    ("doc1", ".docx", 2),
+    ("presentation", ".ppt", 5)
+]
+
+print("Avant le tri :", triplets)
+triplets = tri_selection_par_taille(triplets)
+print("Après le tri :", triplets)
+#Question3:
+def aymen_fichier(triplets):
+    n = len(triplets)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if triplets[j][0] > triplets[j+1][0]:
+                triplets[j], triplets[j+1] = triplets[j+1], triplets[j]
+    return triplets
+
+# Exemple d'utilisation
+triplets = [
+    ("image_fati", ".png", 10),
+    ("fichier1", ".txt", 3),
+    ("doc1", ".docx", 2),
+    ("presentation", ".ppt", 5)
+]
+
+print("Avant le tri :", triplets)
+triplets = aymen_fichier(triplets)
+print("Après le tri :", triplets)
+
+
